@@ -18,7 +18,7 @@ int main() {
     bozo.idade = 31;
 
     snprintf(bozo.nome, sizeof(bozo.nome), "Bozo");
-    snprintf(bozo.desc, sizeof(bozo.desc), "O palhaço de todos vocês!");
+    snprintf(bozo.desc, sizeof(bozo.desc), "O palhaco de todos voces!");
 
     my_print(&bozo);
 
@@ -27,6 +27,6 @@ int main() {
 
 
 static void my_print(struct pessoa *ptr) {
-    fprintf(stdout, "Nome: %s\nIdade: %d\nDescrição: %s\n",
+    fprintf(stdout, "Nome: %s\nIdade: %d\nDescricao: %s\n",
         ptr->nome, ptr->idade, ptr->desc);
 }
