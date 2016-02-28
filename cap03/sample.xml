@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- sample.xml: arquivo de configuração XML -->
+<config>
+    <system name="leibniz">
+        <kernel version="2.6.14"/>
+        <kernel bogomips="5611.93"/>
+        <kernel image="/boot/bzImage-2.6.14"/>
+    </system>
+    <system name="galois">
+        <kernel version="2.6.13"/>
+        <kernel bogomips="5192.12"/>
+        <kernel image="/boot/bzImage-2.6.13"/>
+    </system>
+</config>

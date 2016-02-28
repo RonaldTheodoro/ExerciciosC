@@ -57,34 +57,64 @@ int main() {
 
         /* Checa se o comando digitado é o local ou extermo */
         is_builtin = 0;
-        for (i = 0, )
-        /*  */
-        /*  */
-        /*  */
-        /*  */
-        /*  */
+        for (i = 0, ptr = cmdlist; i < cmdlen; i++, ptr++) {
+            if (!strcmp (*lines, ptr->cmd)) {
+                ptr->func (&lines[1]);
+                is_builtin = 1;
+            }
+        }
 
+        /* Se for comando interno, volta ao começo do loop */
+        if (is_builtin) continue;
+
+        /* Execute o comando externo */
+        switch (fork ()) {
+            case -1:
+                perror ("fork");
+                exit (1);
+            case 0:
+                execvp (*lines, lines);
+                perror ("exec");
+                _exit (1);
+            default:
+                wait (NULL);
+        }
     }
+
     return 0;
 }
 
 
 static char *fixstr (char *str) {
+    char *p;
+    for (p = str; *p != '\0': p++)
+        if (*p == '\r' || *p == '\n') {
+            *p = '\0';
+            break;
+        }
 
+    return str;
 }
 
 
 static void split (char *str, char **lines) {
+    while (*str != '\0') {
+        while (*str == ' ' && *str != '\0') *str++ = '\0';
+        *lines++ = str;
+        while (*str != ' ' && *str != '\0') str++;
+    }
 
+    *lines = NULL;
 }
 
 
-
 void builtin_cd (char **lines) {
-
+    if (chdir (*lines) == -1)
+        perror ("chdir");
 }
 
 
 void builtin_exit (char **lines) {
-
+    fprintf(stdout, "oooops!\n");
+    exit (0);
 }
