@@ -13,7 +13,7 @@ int main (int argc, char **argv) {
     char **fn;
 
     if (argc < 2) {
-        fprintf(stdout, "Use: %s arquivo [arquivo...]\n", *argv);
+        fprintf(stderr, "Use: %s arquivo [arquivo...]\n", *argv);
         return 1;
     } else
         fn = ++argv;

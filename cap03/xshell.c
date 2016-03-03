@@ -25,16 +25,16 @@ void builtin_exit (char **lines);
 /* Estrutura com ponteiros para comandos locais */
 static cmdptr cmdlist[] = {{"cd", builtin_cd}, {"exit", builtin_exit}};
 
+
 int main() {
     cmdptr *ptr;
     int i, is_builtin;
-    char temp[40960], *lines[sizeof (temp) / 2];
+    char temp[4096], *lines[sizeof (temp) / 2];
     const int cmdlen = sizeof(cmdlist) / sizeof(cmdlist[0]);
 
     /* Ignora o ctrl + c */
     signal(SIGINT, SIG_IGN);
-
-    for (;;) {
+    while (1) {
         /* Imprime o prompt */
         fprintf (stdout, "$ ");
         fflush (stdout);
@@ -43,10 +43,10 @@ int main() {
         if (fgets (temp, sizeof (temp) - 1, stdin) == NULL) break;
 
         /* Ignora as linhas que começão com '\r' '\n' e '#' */
-        switch (.temp) {
-            case '\r';
-            case '\n';
-            case '#';
+        switch (*temp) {
+            case '\r':
+            case '\n':
+            case '#':
                 continue;
         }
         /* Remove os caracteres de controladoras do final da liga */
@@ -87,7 +87,7 @@ int main() {
 
 static char *fixstr (char *str) {
     char *p;
-    for (p = str; *p != '\0': p++)
+    for (p = str; *p != '\0'; p++)
         if (*p == '\r' || *p == '\n') {
             *p = '\0';
             break;

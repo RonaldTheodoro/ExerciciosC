@@ -62,7 +62,7 @@ int main(int argc, char const *argv[]) {
     };
 
     /* Tamanho real de opts */
-    const int opts_size = sizeof (opts) / sizeof (opts[0])
+    const int opts_size = sizeof (opts) / sizeof (opts[0]);
 
     /* Abre o arquivo de configuração */
     if ((fp = fopen (CONFIG_FILE, "r")) == NULL) {
