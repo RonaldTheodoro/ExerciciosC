@@ -1,0 +1,16 @@
+#
+# Makefile.sample: Procedimentos apenas para demostração
+#
+# Para utilizar:
+#	make -f Makefile.sample teste
+#
+
+teste:
+	clear
+	ls -l
+
+sessao1:
+	date
+
+sessao2:
+	uname -a
