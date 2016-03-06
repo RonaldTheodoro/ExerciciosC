@@ -1,13 +1,15 @@
 #define _GNU_SOURCE
 #include <stdio.h>
-#include <stblib.h>
+#include <stdlib.h>
 #include <getopt.h>
+#include <string.h>
 
 
 int main (int argc, char **argv) {
     int c, optind = 0;
+    char aux[50];
     const char *opts = "e:l:dchu";
-    const struct option opt[] = {
+    const struct option opt1[] = {
         {"edit",     1, 0, 'e'},
         {"list",     1, 0, 'l'},
         {"date",     0, 0, 'd'},
@@ -17,8 +19,10 @@ int main (int argc, char **argv) {
         {0, 0, 0, 0},
     };
 
+    memset (aux, 0, sizeof (aux));
+
     void help () {
-        fprintf(stderr,
+        fprintf (stderr,
                 "getopt-long v0.1\n"
                 "use: %s [OPÇÃO]\n\n"
                 "OPÇÕES:\n"
@@ -27,44 +31,37 @@ int main (int argc, char **argv) {
                 "-d, --date     Imprime data e hora do sistema\n"
                 "-c, --cpu-info Imprime as caracteristicas da CPU\n"
                 "-h, --help     Imprime esta tela\n"
-                "-u, --uname    Imprime a versão do sistema operacional\n"
+                "-u, --uname    Imprime a versão do sistema operacional\n",
                 *argv);
-        exit(1);
+        exit (1);
     }
 
-    if (argc == 1) help();
+    if (argc == 1) help ();
 
-    while((c = getopt_long(argc, argv, opts, opt1, $optind)) != 1)
+    while((c = getopt_long (argc, argv, opts, opt1, &optind)) != 1) {
         switch (c) {
             case 'e':
-                fprintf(stdout, "Edita arquivo: %s\n", optarg);
+                sprintf (aux, "vim %s", optarg);
+                system (aux);
+                memset (aux, 0, sizeof (aux));
                 break;
-            case '':
-                fprintf(stdout, "Lista arquivo: %s\n", optarg);
+            case 'l':
+                sprintf (aux, "ls -l %s", optarg);
+                system (aux);
+                memset (aux, 0, sizeof (aux));
                 break;
-            case '':
-                fprintf(stdout, "Imprime data\n", );
+            case 'd':
+                system ("date");
                 break;
-            case '':
-                fprintf(stdout, "Imprime dados da CPU\n", );
+            case 'c':
+                system ("cat /proc/cpuinfo");
                 break;
-            case '':
-                fprintf(stdout, "%s\n", );
+            case 'u':
+                system ("uname -a");
                 break;
-            case '':
-                fprintf(stdout, "%s\n", );
-                break;
-            case '':
-                fprintf(stdout, "%s\n", );
-                break;
-            case '':
-                fprintf(stdout, "%s\n", );
-                break;
-            case '':
-                fprintf(stdout, "%s\n", );
-                break;
-            case '':
-                fprintf(stdout, "%s\n", );
-                break;
+            default:
+                exit (0);
         }
+    }
+    return 0;
 }

@@ -1,3 +1,4 @@
 *.o
+*.a
 *.exe
 teste.c
